@@ -55,7 +55,7 @@ Regarding the check of specificity, it is supposed that the Taq polymerase lacki
 
 Check_rRNA.py
 
-This script can be used to check the selected primers' possibility to hybridize with ribosomal RNAs. The 
+This script can be used to check the selected primers' possibility to hybridize with ribosomal RNAs. The input file in .tsv format should contain at least the 'primer_seq' field. File with reference transcripts in FASTA format, specified by --spec_fasta, is required and should contain non-abbreviated gene names. The minimum number of mismatches, which is considered safe, is specified with --mis_num parameter. The alignments with rRNA species, which have fewer number of mismatches will be outputted. 
 
 
 
