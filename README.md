@@ -25,29 +25,29 @@ All optional parameters can be viewed using --help option.
 
 The output file with default name 'primer_list.tsv' contains the following fields:
 
-FILTER - this field contains the characteristics of primers, which are not optimal (e.g. SPEC means specificity issues, CG - too low or too high CG-content, etc.);
+FILTER: this field contains the characteristics of primers, which are not optimal (e.g. SPEC means specificity issues, CG - too low or too high CG-content, etc.);
 
-next follows all fields, which were present in the input file with genomic coordinates;
+all the fields, which were present in the input file with genomic coordinates;
 
-primer_start, primer_end - primer's coordinates;	
+primer_start, primer_end: primer's coordinates;	
 
-primer_seq - primer's sequence;
+primer_seq: primer's sequence;
 
-primer_CG - primer's CG-content;
+primer_CG: primer's CG-content;
 
-primer_Tm - primer's melting temperature;
+primer_Tm: primer's melting temperature;
 
-primer_len - primer's length;
+primer_len: primer's length;
 
-SNP - shows SNPs, with the population frequencies above the threshold (default 0.01), within primer coordinates; 
+SNP: SNPs, with the population frequencies above the threshold (default 0.01), within primer coordinates; 
 
-SNP_3position - the position of SNP within primer's sequence, starting from the 3' end; 
+SNP_3position: the position of SNP within primer's sequence, starting from the 3' end; 
 
-SNP_info - the database SNP information;
+SNP_info: the database SNP information;
 
-Ngenes_0mis, Ngenes_1mis, Ngenes2mis, Ngenes_3mis - number of genes, whose transcripts contain regions, where the primer can hybridize with 0, 1, 2 or 3 mismatches, respectively;
+Ngenes_0mis, Ngenes_1mis, Ngenes2mis, Ngenes_3mis: number of genes, whose transcripts contain regions, where the primer can hybridize with 0, 1, 2 or 3 mismatches, respectively;
 
-Genes_0mis, Genes_1mis, Genes_2mis, Genes_3mis - the respective genes.
+Genes_0mis, Genes_1mis, Genes_2mis, Genes_3mis: the respective genes.
 
 Regarding the check of specificity, it is supposed that the Taq polymerase lacking 3'-error correction activity is used in reaction; thus, the targets with 3'end mismatches with the primer are ignored.
 
