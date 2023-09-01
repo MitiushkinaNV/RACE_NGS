@@ -19,7 +19,7 @@ Other required parameters:
   
   --vcf_file, Reference SNP database file (the gnomAD v.3 database https://gnomad.broadinstitute.org/ can be used, but only as a single vcf file);
   
-  --spec_fasta, File with reference transcripts in FASTA format (this database is required to check for the primers' specificity);
+  --spec_fasta, File with reference transcripts in FASTA format (this database is required to check for the primers' specificity, the RefSeq transcripts database https://www.ncbi.nlm.nih.gov/refseq/ is recommended);
 
 All optional parameters can be viewed using --help option.
 
@@ -50,6 +50,13 @@ Ngenes_0mis, Ngenes_1mis, Ngenes2mis, Ngenes_3mis: number of genes, whose transc
 Genes_0mis, Genes_1mis, Genes_2mis, Genes_3mis: the respective genes.
 
 Regarding the check of specificity, it is supposed that the Taq polymerase lacking 3'-error correction activity is used in reaction; thus, the targets with 3'end mismatches with the primer are ignored.
+
+
+
+Check_rRNA.py
+
+This script can be used to check the selected primers' possibility to hybridize with ribosomal RNAs. The 
+
 
 
 ![image](https://github.com/MitiushkinaNV/RACE_NGS/assets/96590759/372639ee-f20a-48fa-bc00-1783ea5a2a9f)
