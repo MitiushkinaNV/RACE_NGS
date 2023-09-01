@@ -58,6 +58,9 @@ Check_rRNA.py
 This script can be used to check the selected primers' possibility to hybridize with ribosomal RNAs. The input file in .tsv format should contain at least the 'primer_seq' field. File with reference transcripts in FASTA format, specified by --spec_fasta, is required and should contain non-abbreviated gene names. The minimum number of mismatches, which is considered safe, is specified with --mis_num parameter. The alignments with rRNA species, which have fewer number of mismatches will be outputted. 
 
 
+Check_RACEprimers.py
+
+This is a script written for the analysis of the results from pilot experiments.
 
 ![image](https://github.com/MitiushkinaNV/RACE_NGS/assets/96590759/372639ee-f20a-48fa-bc00-1783ea5a2a9f)
 
