@@ -60,7 +60,7 @@ This script can be used to check the selected primers' possibility to hybridize 
 
 Check_RACEprimers.py
 
-This is a script written for the analysis of the results from pilot experiments.
+This is a script written for the analysis of the results obtained from pilot experiments. It requires R1.fastq file only (provided via --fastq_file option). The .tsv file with information about primers used for the enrichment and the genomic coordinates of the exons, where the primers are located, also should be provided. Normally, the header and the selected rows from the file generated with FindRACEprimers.py, are used. The required columns are "Start", "End" (which are exon coordinates), "primer_start", "primer_end" (which are primer coordinates), "primer_seq" (primer sequence) and "Gene" (gene name). Additional columns, e.g. "primer_name" can be added, and all input columns will be outputted. The program searches for the primer sequence in the beginning of a read 1, then, if there is enough distance left till the exon end, the sequence within the read 1, which foolows primer sequence, is compared to the reference sequence (the reference fasta file should be provided with --ref_file argument).      
 
 ![image](https://github.com/MitiushkinaNV/RACE_NGS/assets/96590759/372639ee-f20a-48fa-bc00-1783ea5a2a9f)
 
