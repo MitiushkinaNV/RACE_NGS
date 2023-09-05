@@ -60,7 +60,23 @@ This script can be used to check the selected primers' possibility to hybridize 
 
 Check_RACEprimers.py
 
-This is a script written for the analysis of the results obtained from pilot experiments. It requires R1.fastq file only (provided via --fastq_file option). The .tsv file with information about primers used for the enrichment and the genomic coordinates of the exons, where the primers are located, also should be provided. Normally, the header and the selected rows from the file generated with FindRACEprimers.py, are used. The required columns are "Start", "End" (which are exon coordinates), "primer_start", "primer_end" (which are primer coordinates), "primer_seq" (primer sequence) and "Gene" (gene name). Additional columns, e.g. "primer_name" can be added, and all input columns will be outputted. The program searches for the primer sequence in the beginning of a read 1, then, if there is enough distance left till the exon end, the sequence within the read 1, which foolows primer sequence, is compared to the reference sequence (the reference fasta file should be provided with --ref_file argument).      
+This is a script written for the analysis of the results obtained from pilot experiments. It requires R1.fastq file only (provided via --fastq_file option). The .tsv file with information about primers used for the enrichment and the genomic coordinates of the exons, where the primers are located, also should be provided. Normally, the file generated with FindRACEprimers.py, is supposed to be used. The required columns are "Start", "End" (which are exon coordinates), "primer_start", "primer_end" (which are primer coordinates), "primer_seq" (primer sequence) and "Gene" (gene name). Additional columns, e.g. "primer_name" can be added, and all input columns will be outputted. The program searches for the primer sequence in the beginning of a Read 1, then, if there is enough distance left till the exon end, the sequence in the Read 1, which immediately follows the primer sequence, is compared to the reference sequence (the reference fasta file should be provided with --ref_file argument). The other required arguments are --primer_strand ("forward" for 3' RACE and "reverse" for 5' RACE methods) and the --sample_name. The program counts reads, where the expected reference sequence follows primer sequence, as "specific". In the outputted file with default name "Count_reads_per_primer.tsv", the following new columns will appear:
+
+Sample: the sample name, which is useful then the file containing multiple samples is created;
+
+ref_to_compare: the reference sequence, within the exonic coordinates, which was compared to the actual Read 1 sequence (if the primer's location is too close to the exon border, this field can be empty);
+
+all_reads: the total number of reads, starting from the primer sequence;
+
+spec_reads: the number of reads, in which the exprected reference sequence follows the primer sequence;
+
+nonspec_reads: the number of reads, in which the exprected reference sequence does not follow the primer sequence;
+
+primer_eff: primer efficiency, calculated relative to the primer with maximum number of reads, among all primers located in the same gene;
+
+primer_spec: primer specificity, calculated as the percentage of "specific" reads relative to the total number of reads.
+
+Additional arguments can be accessed with the --help option.
 
 ![image](https://github.com/MitiushkinaNV/RACE_NGS/assets/96590759/372639ee-f20a-48fa-bc00-1783ea5a2a9f)
 
