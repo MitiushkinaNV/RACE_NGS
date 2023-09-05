@@ -86,6 +86,13 @@ The program outputs the filtered .bam file, where only those templates are kept,
 
 Additional arguments can be accessed with the --help option.
 
+RACE_Caller.py
+
+This script was created for the variant calling. The sensitivity is defined by the minimun fraction of the alternate allele (--fract_alt option with default value 0.03) and the minimum number of reads suppoting the alternate allele (--min_alt option with default value 5). The input sorted by coordinate and indexed .bam file, filtered with Filter_RACEbam.py program, together with the "_filter.txt" file should be provided using options --file_in and --filter_file, respectively. Also, a file in BED format, specifying regions, where variant calling should be performed, is required, as well as the file with primers used for enrichment. These files need to be provided using --regions_bed and --primers_file options, respectively. The other necessary options are --reference_file (reference fasta file) and --file_out (the output file name).   
+
+
+
+
 
 
 ![image](https://github.com/MitiushkinaNV/RACE_NGS/assets/96590759/372639ee-f20a-48fa-bc00-1783ea5a2a9f)
