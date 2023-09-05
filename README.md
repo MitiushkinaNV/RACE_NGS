@@ -90,10 +90,29 @@ RACE_Caller.py
 
 This script was created for the variant calling. The sensitivity is defined by the minimun fraction of the alternate allele (--fract_alt option with default value 0.03) and the minimum number of reads suppoting the alternate allele (--min_alt option with default value 5). The input sorted by coordinate and indexed .bam file, filtered with Filter_RACEbam.py program, together with the "_filter.txt" file should be provided using options --file_in and --filter_file, respectively. Also, a file in BED format, specifying regions, where variant calling should be performed, is required, as well as the file with primers used for enrichment. These files need to be provided using --regions_bed and --primers_file options, respectively. The other necessary options are --reference_file (reference fasta file) and --file_out (the output file name).   
 
+RACE_Caller.py outputs results in the table format, compatible with ANNOVAR (https://annovar.openbioinformatics.org). The following columns are included:
 
+#Chr,Start,End,Ref,Alt: as defined in ANNOVAR documentation (https://annovar.openbioinformatics.org/en/latest/#annovar-documentation);
 
+DP: depth of coverage;
 
+AD_Ref: allelic depth (reference allele);
 
+AD_Alt: allelic depth (alternate allele);
+
+ALTfraction: alternate allele fraction;
+
+ADF: allelic depths (forward strand);
+
+ADR: allelic depths (reverse strand);
+
+STRbias_OR: odds ratio for the strand bias;
+
+STRbias_p: Fisher's exact test p-value for the strand bias;
+
+POSbias_p: Mann-Whitney U-test p-value for the position bias;
+
+QUALbias_p: Mann-Whitney U-test p-value for the base quality bias.
 
 ![image](https://github.com/MitiushkinaNV/RACE_NGS/assets/96590759/372639ee-f20a-48fa-bc00-1783ea5a2a9f)
 
