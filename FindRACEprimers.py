@@ -8,18 +8,18 @@ import ahocorasick
 import math
 
 parser=argparse.ArgumentParser()
-parser.add_argument("-c","--coordinates_file",help="Input file with coordinates", required=True)
-parser.add_argument("-r","--ref_file",help="Genomic reference sequence", required=True)
+parser.add_argument("-c","--coordinates_file",help="Input file with genomic coordinates, formatted as FindRACEprimers_example_input.tsv", required=True)
+parser.add_argument("-r","--ref_file",help="Genomic reference sequence in FASTA format", required=True)
 parser.add_argument("-v","--vcf_file",help="Reference SNP database file", required=True)
 parser.add_argument("-f","--vcf_freq",help="Threshold for polymorphism frequency", type=float, default=0.01)
-parser.add_argument("-s","--primer_strand", help="Select primers on forward or on reverse strand", required=True)
+parser.add_argument("-s","--primer_strand", help="Select either 'forward' for 3'RACE or 'reverse' for 5'RACE method", required=True)
 parser.add_argument("-t","--melt_temp",help="Melting temperature", required=True, type=float)
 parser.add_argument("-l","--tail_seq",help="5'-tail to add to each primer", default="")
-parser.add_argument("-o","--output_file",help="Output file name", default="primer_list.txt")
-parser.add_argument("-a","--spec_fasta",help="File to be used in check of primer specificity", required=True)
-parser.add_argument("-p","--conc_primer",help="Primer concentration, nM", required=True, type=float)
-parser.add_argument("-m","--conc_mg",help="Mg concentration, mM", required=True, type=float)
-parser.add_argument("-b","--conc_salt",help="Salt concentration, mM", required=True, type=float)
+parser.add_argument("-o","--output_file",help="Output file name", default="primer_list.tsv")
+parser.add_argument("-a","--spec_fasta",help="File with reference transcripts in FASTA format", required=True)
+parser.add_argument("-p","--conc_primer",help="Primer concentration in PCR, nM", required=True, type=float)
+parser.add_argument("-m","--conc_mg",help="Mg concentration in PCR, mM", required=True, type=float)
+parser.add_argument("-b","--conc_salt",help="Salt concentration in PCR, mM", required=True, type=float)
 
 parser.add_argument("-i","--limit_genes",help="Limit number of outputted gene names", type=int, default=10)
 parser.add_argument("-n","--min_length",help="Min primer length", type=int, default=15)
@@ -27,7 +27,7 @@ parser.add_argument("-n","--min_length",help="Min primer length", type=int, defa
 args=parser.parse_args()
 
 if args.primer_strand!="forward" and args.primer_strand!="reverse":
-    print("The primer_strand argument should be either forward (for 3' RACE) or reverse (for 5' RACE)")
+    print("The primer_strand argument should be either forward (for 3'RACE) or reverse (for 5'RACE)")
     exit()
 
 #from table at http://www.ncbi.nlm.nih.gov/pmc/articles/PMC19045/table/T2/ (SantaLucia, 1998)
@@ -124,7 +124,8 @@ for spec_record in spec_records:
     if re.search("PREDICTED:",spec_record.description):
         continue
     spec_gene=(re.split(", transcript variant",spec_record.description))[0]
-    spec_dict[spec_record.id]=((spec_gene)[len(spec_record.id)+1:],str(spec_record.seq))
+    spec_dict[spec_record.id]=((spec_gene)[len(spec_record.id)+1:],"NNN"+str(spec_record.seq))
+    
 vcf_file = pysam.VariantFile(args.vcf_file)
 if "chr1" in vcf_file.header.contigs:
     vcf_chr=True

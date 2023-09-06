@@ -27,13 +27,13 @@ args=parser.parse_args()
 
 bam_chr=False
 in_bamfile=pysam.AlignmentFile(args.file_in, "rb")
-#print(in_bamfile.references)
+
 if "chr1" in in_bamfile.references:
     bam_chr=True
 
 ref_chr=False
 ref_seq=pysam.FastaFile(filename=args.reference_file)
-#print(ref_seq.references)
+
 if "chr1" in ref_seq.references:
     ref_chr=True
     
@@ -63,10 +63,7 @@ if args.filter_file and args.primers_file:
         for each_coordinate in primer_coordinates:
             primer_dict[(line_dict["Chr"],each_coordinate)]=line_dict["name"]
     primers_file.close()
-    '''
-    for each_key in primer_dict.keys():
-        print(each_key,primer_dict[each_key])
-    '''
+    
 elif args.filter_file or args.primers_file:
     print("!!!")
     print("To switch on filtering of certain bases in primer positions BOTH filter-file and primers-file are required")
@@ -134,7 +131,6 @@ def var_finder(f_pileup, coordinates, ref_dict):
                     if not (p_value<0.05 and (odd_ratio<=1/args.or_cutoff or odd_ratio>=args.or_cutoff)):
                         res_dict[str(coord)+","+each_allele]=[total_bases,ref_depth,base_dict[each_allele],ADF,ADR,odd_ratio,p_value,
                                                           p_value_position,p_value_qualities]
-                    #print(all_bases)
     return(res_dict)
 
 res_file=open(args.file_out,'wt')
@@ -184,14 +180,8 @@ for line in regions_file:
         res_line_dict["QUALbias_p"]=str(round(res_dict[res_key][8],5))
         
         #find ref
-        #format insertions and deletions
-        '''
-        for i in range(0,len(res_file_header)):
-            print(res_file_header[i]+": "+res_line_dict[res_file_header[i]])
-        '''    
+        #format insertions and deletions 
         if re.search('\-\d+N+',res_line_dict["Alt"]):
-            #print("Deletion found")
-            #print("Formatting...")
             num_del=int((re.search('\d+',res_line_dict["Alt"])).group())
             res_line_dict["Start"]=int(res_line_dict["Start"])+1
             res_line_dict["Ref"]=""
@@ -200,13 +190,7 @@ for line in regions_file:
             res_line_dict["Alt"]="-"
             res_line_dict["End"]=str(res_line_dict["Start"]+num_del-1)
             res_line_dict["Start"]=str(res_line_dict["Start"])
-            '''
-            for i in range(0,len(res_file_header)):
-                print(res_file_header[i]+": "+res_line_dict[res_file_header[i]])
-            '''
         elif re.search('\+\d+',res_line_dict["Alt"]):
-            #print("Insertion found")
-            #print("Formatting...")
             res_line_dict["Ref"]="-"
             res_line_dict["Alt"]=re.sub('\D\+\d+','',res_line_dict["Alt"])
             

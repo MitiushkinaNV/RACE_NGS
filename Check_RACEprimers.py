@@ -15,8 +15,8 @@ parser.add_argument("-d","--ed_ref",help="Max edit distance with reference", def
 parser.add_argument("-i","--compare_min",help="Min number of bp to compare with reference", default=10, type=int)
 parser.add_argument("-a","--compare_max",help="Max number of bp to compare with reference", default=20, type=int)
 parser.add_argument("-l","--tail_seq",help="5'-tail to remove from each primer", default="")
-parser.add_argument("-o","--output_file",help="Output file name", default="specificity_expression_res.txt")
-parser.add_argument("-s","--primer_strand", help="Were primers selected on forward or on reverse strand", required=True)
+parser.add_argument("-o","--output_file",help="Output file name", default="Count_reads_per_primer.tsv")
+parser.add_argument("-s","--primer_strand", help="Were primers selected for 3' RACE (forward) or 5' RACE (reverse)", required=True)
 parser.add_argument("-n","--sample_name",help="Sample name", required=True)
 
 args=parser.parse_args()

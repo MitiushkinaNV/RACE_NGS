@@ -10,10 +10,10 @@ from Bio.pairwise2 import format_alignment
 
 parser=argparse.ArgumentParser()
 parser.add_argument("-i","--input_file",help="Input file with primer_seq", required=True)
-parser.add_argument("-s","--primer_strand", help="Were primers selected on forward or on reverse strand", required=True)
-parser.add_argument("-l","--tail_seq",help="5'-tail to add to each primer", default="")
+parser.add_argument("-s","--primer_strand", help="Select either 'forward' for 3'RACE or 'reverse' for 5'RACE method", required=True)
+parser.add_argument("-l","--tail_seq",help="5'-tail of each primer, if present", default="")
 parser.add_argument("-o","--output_file",help="Output file name")
-parser.add_argument("-a","--spec_fasta",help="File to be used in check of primer specificity", required=True)
+parser.add_argument("-a","--spec_fasta",help="File with reference transcripts in FASTA format", required=True)
 parser.add_argument("-m","--mis_num",help="Minimum number of mismatches considered safe", type=int, default=5)
 
 args=parser.parse_args()
