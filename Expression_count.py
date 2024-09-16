@@ -42,7 +42,14 @@ for line in coordinates_file:
     elif not(re.match("chr",line_dict["Chr"])) and bam_chr:
         line_dict["Chr"]="chr"+line_dict["Chr"]
     
-    res_fetch=in_bamfile.fetch(contig=line_dict["Chr"], start=int(line_dict["Start"]), stop=int(line_dict["End"]))
+    if int(line_dict["Start"])>int(line_dict["End"]):
+        start_coord=int(line_dict["End"])
+        end_coord=int(line_dict["Start"])
+    else:
+        end_coord=int(line_dict["End"])
+        start_coord=int(line_dict["Start"])
+        
+    res_fetch=in_bamfile.fetch(contig=line_dict["Chr"], start=start_coord, stop=end_coord)
     all_reads=[]
     for each_read in res_fetch:
         if (not each_read.is_duplicate) and\
@@ -53,6 +60,7 @@ for line in coordinates_file:
             (not each_read.is_supplementary) and\
             (not each_read.is_unmapped) and\
             each_read.mapping_quality>=args.min_mq and\
+            each_read.get_overlap(start_coord,end_coord) and\
             each_read.query_name in filter_dict[line_dict["Primer"]]:
             all_reads.append(each_read.query_name)
     res_count=len(set(all_reads))

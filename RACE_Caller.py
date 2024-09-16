@@ -106,7 +106,6 @@ def var_finder(f_pileup, coordinates, ref_dict):
                 del base_dict[ref_dict[str(coord)]]
             else:
                 ref_depth=0
-            
             for each_allele in base_dict.keys():
                 if base_dict[each_allele]/total_bases>=args.fract_alt and\
                     base_dict[each_allele]>=args.min_alt:
@@ -128,7 +127,7 @@ def var_finder(f_pileup, coordinates, ref_dict):
                     ADF=[str(all_bases.count(ref_dict[str(coord)])),str(all_bases.count(each_allele))]
                     ADR=[str(all_bases.count(ref_dict[str(coord)].lower())),str(all_bases.count(each_allele.lower()))]
                     odd_ratio, p_value = stats.fisher_exact([ADF,ADR])
-                    if not (p_value<0.05 and (odd_ratio<=1/args.or_cutoff or odd_ratio>=args.or_cutoff)):
+                    if not (ref_depth>base_dict[each_allele] and p_value<0.001 and (odd_ratio<=1/args.or_cutoff or odd_ratio>=args.or_cutoff)):
                         res_dict[str(coord)+","+each_allele]=[total_bases,ref_depth,base_dict[each_allele],ADF,ADR,odd_ratio,p_value,
                                                           p_value_position,p_value_qualities]
     return(res_dict)
@@ -185,6 +184,9 @@ for line in regions_file:
             num_del=int((re.search('\d+',res_line_dict["Alt"])).group())
             res_line_dict["Start"]=int(res_line_dict["Start"])+1
             res_line_dict["Ref"]=""
+            if not str(res_line_dict["Start"]+num_del-1) in ref_dict:
+                #deletion goes past the specified region
+                continue
             for k in range(res_line_dict["Start"],res_line_dict["Start"]+num_del):
                 res_line_dict["Ref"]+=ref_dict[str(k-1)]
             res_line_dict["Alt"]="-"
