@@ -1,0 +1,3 @@
+VariantName	PrimerName	RegionsPresent_Chr	RegionsPresent_Start	RegionsPresent_End	RegionsAbsent_Chr	RegionsAbsent_Start	RegionsAbsent_End	AlleleName
+METex14del	METex15_1	7	116771849	116771989				WT
+METex14del	METex15_1	7	116771498	116771654	7	116771849	116771989	MUT
